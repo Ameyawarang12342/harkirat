@@ -4,7 +4,21 @@
 */
 
 function isPalindrome(str) {
-  return true;
+  // check for empty string
+  if(str.length == 0) {
+    return true;
+  }
+    
+  // logic for palindrom
+  let text = str.replace(/[^A-Za-z0-9]/g,'').toLowerCase();
+  const palindrom = text.split('').reverse().join('');
+    
+   // check for palindrom
+  if(palindrom === text) {
+    return true
+  } else {
+    return false;
+  }
 }
 
 module.exports = isPalindrome;

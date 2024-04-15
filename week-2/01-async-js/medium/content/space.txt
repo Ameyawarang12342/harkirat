@@ -1,0 +1,2 @@
+     This      is       extra       spaced      file     .
+Hello     ,        my name    is    Prince.    Trying     to     learn   MERN    Stack.
