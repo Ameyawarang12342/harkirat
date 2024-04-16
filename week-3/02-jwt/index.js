@@ -1,12 +1,17 @@
 const jwt = require('jsonwebtoken');
 const jwtPassword = 'secret';
+const zod = require('zod');
+
+const emailSchema = zod.string().email();
+const passwordSchema = zod.string().min(6); // to implement the constraint of len 
+
 
 
 /**
  * Generates a JWT for a given username and password.
  *
  * @param {string} username - The username to be included in the JWT payload.
- *                            Must be a valid email address.
+ *                            Must be a valid email address
  * @param {string} password - The password to be included in the JWT payload.
  *                            Should meet the defined length requirement (e.g., 6 characters).
  * @returns {string|null} A JWT string if the username and password are valid.
@@ -15,6 +20,20 @@ const jwtPassword = 'secret';
  */
 function signJwt(username, password) {
     // Your code here
+    // now verify the incoming username and password
+    const usernameResp = emailSchema.safeParse(username);
+    const passwordResp = passwordSchema.safeParse(password);
+
+    // check if they are vaild or not
+    if(!usernameResp.success || !passwordResp.success){
+        return null;
+    }
+
+    const signature = jwt.sign({
+        username
+    },jwtPassword);
+
+    return signature;
 }
 
 /**
@@ -26,7 +45,14 @@ function signJwt(username, password) {
  *                    using the secret key.
  */
 function verifyJwt(token) {
-    // Your code here
+    // Your code herelw
+    let res = true;
+    try {
+        jwt.verify(token, jwtPassword);
+    } catch (error) {
+        res = false;
+    }
+    return res;
 }
 
 /**
@@ -38,6 +64,12 @@ function verifyJwt(token) {
  */
 function decodeJwt(token) {
     // Your code here
+    const decoded = jwt.decode(token);
+    if(decoded){
+        return true;
+    }else{
+        return false;
+    }
 }
 
 

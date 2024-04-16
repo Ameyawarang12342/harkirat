@@ -9,5 +9,13 @@ There is no automated test for this one, this is more for you to understand time
 */
 
 function calculateTime(n) {
-    return 0.01;
+    let d1 = new Date().valueOf();
+    //console.log(d1);
+   let sum = 0;
+   for( let i =1 ; i<=n; i++){
+       sum+=i;
+   }
+   let d2 = new Date().valueOf();
+   console.log((d2 - d1)/1000);
+   return ((d2 - d1)/1000);
 }

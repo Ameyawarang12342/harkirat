@@ -11,10 +11,38 @@ const app = express();
 // You have been given a numberOfRequestsForUser object to start off with which
 // clears every one second
 
+// Explantion : 
+// why setInterval ? : It will reset the all values after every 1 sec .
+
 let numberOfRequestsForUser = {};
 setInterval(() => {
     numberOfRequestsForUser = {};
 }, 1000)
+
+// Global middleeare in between
+
+app.use(function(req , res , next){
+    // 1)extract the user id from the req 
+    const userId = req.headers["userID"];
+
+    //2)check if it has done any req ?
+    if(numberOfRequestsForUser[userId]){
+      // increment the count 
+      numberOfRequestsForUser[userId]+=1;
+
+      // check if it crosses the limit 
+      if(numberOfRequestsForUser[userId] > 5){
+        res.status(404).send("No Entry !!!!! ");
+      }else{
+        next();
+      }
+    }else{
+      // might be the case ki koi req ayi hi nahi yaha phir data reset hogaya hau
+      // then ree initilise
+      numberOfRequestsForUser[userId] = 1;
+      next();
+    }
+})
 
 app.get('/user', function(req, res) {
   res.status(200).json({ name: 'john' });
@@ -23,5 +51,11 @@ app.get('/user', function(req, res) {
 app.post('/user', function(req, res) {
   res.status(200).json({ msg: 'created dummy user' });
 });
+
+// app.listen(3000, ()=>{
+//   console.log("Listening on port 3000");
+// })
+
+
 
 module.exports = app;

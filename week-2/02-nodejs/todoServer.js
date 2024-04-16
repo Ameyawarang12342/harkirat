@@ -43,7 +43,102 @@
   const bodyParser = require('body-parser');
   
   const app = express();
-  
+  const port = 3000;
   app.use(bodyParser.json());
+
+
+  const todos = [
+    {
+      id:1,
+      title : "Going to the Gym vroms",
+      description : "I have to go to gym at 7 pm in the night"
+    },
+    {
+      id :2,
+      title : "Going to the class vroms",
+      description : "I have to go to gym at 7 am in the morning."
+    },
+    {
+      id:3,
+      title : "Going to the moive vroms",
+      description : "I have to go for a moive at 7 pm in the nght"
+    },
+    {
+      id:4,
+      title : "Going for a car ride vroms",
+      description : "I have to go for a car ride at 7 pm in the night"
+    }
+  ]
   
+  // to get all the todos
+
+  app.get('/todos', (req, res)=>{
+        console.log("Get all todos hit !!!");
+        res.status(200).json(todos);
+  })
+
+  // to get a specific todo we want to search for the specific to do.
+  // get the id from the url and then search for it in the array.
+
+  app.get('/todos/:id', (req,res ) =>{
+    console.log("get selected todo hit !!!");
+    
+    //extract the id from url 
+    const id = parseInt(req.params.id);
+    console.log(id);
+
+    // now we will check weather there is any todo for the coressponding id.
+    const response = todos.find((i) =>{
+        return i.id === id;
+    })
+
+     // if exists then send response .
+    if(response){
+      return res.status(200).json(response);
+    }else{
+      res.status(401);
+    }
+  })
+
+  // Create a new Todo 
+  app.post('/todos', (req , res)=>{
+
+      const data = req.body;
+      let ids = todos.length + 1;
+      // console.log(data);
+      let re = {};
+      re.id = ids;
+      re.title = data.title;
+      re.description = data.description;
+      todos.push(re);
+      res.status(201).json(todos);
+  })
+
+  app.put('/todos/:id', (req ,res) =>{
+    const data = req.body;
+    // find the data with the corresponding id
+    todos.forEach(element => {
+       if(element.id === parseInt(req.params.id)){
+        element.title = data.title;
+        element.description = data.description;
+       }
+    });
+
+    return res.status(203).json(todos);
+  })
+
+  app.delete('/todos/:id', (req, res) => {
+    const todoIndex = todos.findIndex(t => t.id === parseInt(req.params.id));
+    if (todoIndex === -1) {
+      res.status(404).send();
+    } else {
+      todos.splice(todoIndex, 1);
+      res.status(200).send();
+    }
+  });
+
+  app.listen(port, ()=>{
+    console.log(`Running on the port ${port}`);
+  });
+
   module.exports = app;
