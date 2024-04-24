@@ -41,9 +41,79 @@
  */
   const express = require('express');
   const bodyParser = require('body-parser');
-  
   const app = express();
-  
   app.use(bodyParser.json());
+
+  todo_json_array = []
+
+  app.get('/todos', function(req,res){
+    console.log(todo_json_array)
+    res.status(200).send(todo_json_array)
+  })
+  app.get('/todos/:id', function(req,res){
+    const id = req.params.id 
+    let found= false
+
+    for(let i=0;i<todo_json_array.length;i++)
+    {
+      if(todo_json_array[i].id == id)
+      {
+        res.status(200).send(todo_json_array[i])
+        found=true
+      }
+    }
+    if(!found){
+      res.status(404).send("No Such Todo Present")
+    }
+    
+  })
+  app.post('/todos', function(req,res){
+    const obj = req.body
+    obj.id = (todo_json_array.length+1).toString()
+    todo_json_array.push(obj)
+    console.log(req.body)
+    res.status(201).send("Posted Sucessfully")
+  })
+  app.put('/todos/:id', function(req,res){
+    const id = req.params.id 
+    let found = false
+
+    for(let i=0;i<todo_json_array.length;i++)
+    {
+      if(todo_json_array[i].id == id)
+      {
+        const obj = req.body
+        obj.id = (id).toString()
+        todo_json_array.splice(i,1,obj)
+        res.status(200).send("Item is updated")
+        found = true
+      }
+    }
+    if(!found){
+      res.status(404).send("No Such item Present")
+    }
+    
+  })
+  app.delete('/todos/:id', function(req,res){
+    const id = req.params.id 
+    let found = false
+
+    for(let i=0;i<todo_json_array.length;i++)
+    {
+      if(todo_json_array[i].id == id)
+      {
+        todo_json_array.splice(i,1)
+        res.status(200).send("Item is deleted")
+        found = true
+      }
+    }
+
+    if(!found){
+      res.send(404).send("No such item is present")
+    }
+    
+  })
+
+  app.listen(3000)
   
   module.exports = app;
