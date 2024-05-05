@@ -5,19 +5,32 @@
  */
 
 function wait1(t) {
-
+  return new Promise(function(resolve){
+    setTimeout(resolve,t*1000)
+  })
 }
 
 function wait2(t) {
-
+  return new Promise(function(resolve){
+    setTimeout(resolve,t*1000)
+  })
 }
 
 function wait3(t) {
-
+  return new Promise(function(resolve){
+    setTimeout(resolve,t*1000)
+  })
 }
+ async function calculate(t1,t2,t3)
+ {
+    const initial=new Date().getTime();
+    await Promise.all([wait1(t1),wait2(t2),wait3(t3)])
+    const later=new Date().getTime();
+    return later-initial
+ }
 
 function calculateTime(t1, t2, t3) {
-
+  return calculate(t1,t2,t3)
 }
 
 module.exports = calculateTime;

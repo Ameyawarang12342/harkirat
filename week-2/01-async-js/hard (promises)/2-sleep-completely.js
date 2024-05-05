@@ -3,8 +3,15 @@
  * During this time the thread should not be able to do anything else.
  * the function should return a promise just like before
  */
-
 function sleep(milliseconds) {
+   return new Promise(function(resolve){
+    const initial=new Date().getTime();
+    while(((new Date().getTime())-initial) != milliseconds)
+    {
+        ;   // busy wait
+    }
+    resolve();
+   })
 }
 
 module.exports = sleep;

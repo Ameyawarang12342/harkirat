@@ -41,9 +41,74 @@
  */
   const express = require('express');
   const bodyParser = require('body-parser');
-  
+   const port=3000
   const app = express();
   
   app.use(bodyParser.json());
+  let todos=[]
+  app.get("/todos",function(req,res){
+     res.json(todos)
+  })
+  
+  app.get("/todos/:id",function(req,res){
+    let n=todos.length
+    const id=req.params.id
+    for(let i=0;i<n;i++)
+      {
+        if(todos[i].ID==id)
+          {
+            res.status(200).json(todos[i])
+          }
+      }
+    res.status(404).send("NOT FOUND")
+  })
+
+  app.post("/todos",function(req,res){
+    let id=Math.floor(Math.random() * 100000)
+    todos.push({
+      ID : id,
+      title : req.body.title,
+      completed : req.body.completed,
+      description : req.body.description 
+    })
+    res.status(200).json({
+         id
+    })
+  })
+
+  app.put("/todos/:id",function(req,res){
+    let id=req.params.id
+    for(let i=0;i<todos.length;i++)
+      {
+         if(todos[i].ID==id)
+          {
+             todos[i].completed="true"
+             res.status(202).send("item is found and updated")
+          }
+      }
+      res.status(401).send("Item not found")
+  })
+
+  app.delete("/todos/:id",function(req,res){
+    let newtodo=[]
+    let id=req.params.id
+    for(let i=0;i<todos.length;i++)
+      {
+         if(todos[i].ID != id)
+          {
+            newtodo.push(todos[i])
+          }
+      }
+      if(newtodo.length == todos.length)
+        {
+           res.status(404).send("NOT FOUND")
+        }
+      todos=newtodo
+      res.status(200).send("OK")
+  })
+
+  app.listen(port,function(){
+    console.log(`listening to port ${port}`)
+  })
   
   module.exports = app;
