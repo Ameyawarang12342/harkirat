@@ -15,6 +15,7 @@ router.post('/signup', (req, res) => {
     })
     res.json({
         message: "User created successfully"
+
     })
 });
 
