@@ -12,9 +12,26 @@ const app = express();
 // clears every one second
 
 let numberOfRequestsForUser = {};
+
 setInterval(() => {
     numberOfRequestsForUser = {};
 }, 1000)
+
+app.use((req,res,next)=>{
+  const user = req.header["user-id"]
+  if (!user) {
+    res.statue(400).json({ error: "User ID not sent" })
+  }
+
+  if (!numberOfRequestsForUser[user]) {
+    numberOfRequestsForUser[user] = 0
+  }
+  numberOfRequestsForUser[user]++
+  if (numberOfRequestsForUser[user] > 5) {
+    res.status(404).json({ error: "Rate Limit Exceeded" })
+  }
+  next()
+})
 
 app.get('/user', function(req, res) {
   res.status(200).json({ name: 'john' });
@@ -24,4 +41,8 @@ app.post('/user', function(req, res) {
   res.status(200).json({ msg: 'created dummy user' });
 });
 
+
+app.listen(3000, () => {
+  console.log('Rate limiter server is running now');
+})
 module.exports = app;
