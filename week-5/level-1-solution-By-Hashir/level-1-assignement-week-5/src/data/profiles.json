@@ -1,0 +1,50 @@
+[
+    {
+      "name": "John Doe",
+      "jobTitle": "Software Developer",
+      "email": "john.doe@example.com",
+      "phone": "+1234567890",
+      "website": "www.johndoe.dev",
+      "github": "github.com/johndoe",
+      "techStack": ["JavaScript", "React", "Node.js", "MongoDB"],
+      "experience": "5 years",
+      "education": "Bachelor's Degree in Computer Science",
+      "projects": ["Project 1: Description of Project 1", "Project 2: Description of Project 2", "Project 3: Description of Project 3"],
+      "certifications": ["Certification 1: Description of Certification 1", "Certification 2: Description of Certification 2"],
+      "companyName": "XYZ Software Solutions",
+      "companyAddress": "123 Main Street, Anytown, State, 12345, Country",
+      "companyWebsite": "www.xyzsoftware.com"
+    },
+    {
+      "name": "Jane Smith",
+      "jobTitle": "Frontend Developer",
+      "email": "jane.smith@example.com",
+      "phone": "+9876543210",
+      "website": "www.janesmith.dev",
+      "github": "github.com/janesmith",
+      "techStack": ["HTML", "CSS", "JavaScript", "Vue.js"],
+      "experience": "3 years",
+      "education": "Bachelor's Degree in Web Development",
+      "projects": ["Project A: Description of Project A", "Project B: Description of Project B", "Project C: Description of Project C"],
+      "certifications": ["Certification X: Description of Certification X", "Certification Y: Description of Certification Y"],
+      "companyName": "ABC Web Solutions",
+      "companyAddress": "456 Oak Street, Somewhere, State, 54321, Country",
+      "companyWebsite": "www.abcwebsolutions.com"
+    },
+    {
+      "name": "David Johnson",
+      "jobTitle": "Backend Developer",
+      "email": "david.johnson@example.com",
+      "phone": "+1112223333",
+      "website": "www.davidjohnson.dev",
+      "github": "github.com/davidjohnson",
+      "techStack": ["Java", "Spring Boot", "MySQL", "AWS"],
+      "experience": "7 years",
+      "education": "Master's Degree in Computer Engineering",
+      "projects": ["Project X: Description of Project X", "Project Y: Description of Project Y", "Project Z: Description of Project Z"],
+      "certifications": ["Certification M: Description of Certification M", "Certification N: Description of Certification N"],
+      "companyName": "PQR Tech Innovations",
+      "companyAddress": "789 Elm Street, Nowhere, State, 98765, Country",
+      "companyWebsite": "www.pqrtech.com"
+    }
+]  

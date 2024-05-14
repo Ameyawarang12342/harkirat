@@ -1,0 +1,65 @@
+/* Style for the business card container */
+.businessCard {
+    font-family: Arial, sans-serif;
+    width: 300px;
+    border: 2px solid #333;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Style for the personal information section */
+.personalInfo {
+    margin-bottom: 20px;
+}
+
+/* Style for the company information section */
+.companyInfo {
+    border-top: 1px solid #ccc;
+    padding-top: 20px;
+}
+
+/* Style for the name */
+.name {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+/* Style for job title */
+.jobTitle {
+    font-size: 18px;
+    margin-bottom: 10px;
+}
+
+/* Style for email, phone, and website */
+.email, .phone, .website, .github, .companyName, .companyWebsite {
+    margin-bottom: 5px;
+}
+
+/* Style for company name */
+.companyName {
+    font-weight: bold;
+}
+
+/* Style for address */
+.address {
+    margin-top: 10px;
+}
+
+/* Style for address details */
+.street, .city, .state, .zipCode, .country {
+    margin-bottom: 3px;
+    font-size: 14px;
+}
+
+/* Style for website links */
+.website a, .companyWebsite a, .github a {
+    color: #007bff;
+    text-decoration: none;
+}
+
+/* Hover effect for website links */
+.website a:hover, .companyWebsite a:hover, .github a:hover {
+    text-decoration: underline;
+}
