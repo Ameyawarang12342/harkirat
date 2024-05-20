@@ -17,5 +17,42 @@ const fs = require('fs');
 const path = require('path');
 const app = express();
 
+const port = 5000;
+const file_dir = path.join(__dirname, 'files');
+
+app.get('/files', (req, res) => {
+  fs.readdir(FILES_DIR, (err, files) => {
+      if (err) {
+          return res.status(500).json({ error: 'Unable to read files directory' });
+      }
+      res.status(200).json(files);
+  });
+});
+
+// Route to get the content of a specific file
+app.get('/file/:filename', (req, res) => {
+  const filePath = path.join(file_dir, req.params.filename);
+
+  fs.readFile(filePath, 'utf8', (err, data) => {
+      if (err) {
+          if (err.code === 'ENOENT') {
+              return res.status(404).send('File not found');
+          } else {
+              return res.status(500).send('Error reading file');
+          }
+      }
+      res.status(200).send(data);
+  });
+});
+
+// Handle undefined routes
+app.use((req, res) => {
+  res.status(404).send('Route not found');
+});
+
+// Start the server
+app.listen(port, () => {
+  console.log(`Server is running on http://localhost:${port}`);
+});
 
 module.exports = app;

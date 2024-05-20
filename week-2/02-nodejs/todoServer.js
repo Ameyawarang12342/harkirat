@@ -41,9 +41,59 @@
  */
   const express = require('express');
   const bodyParser = require('body-parser');
+  const { v4: uuidv4 } = require('uuid');
   
   const app = express();
+
+  let i =0;
   
+  const Todo = [{
+    Id:"",
+    Title:"",
+    Description:""
+  }]
+
+  const Todos = [];
   app.use(bodyParser.json());
-  
+
+  app.get('/todos',(req,res)=>{
+
+    res.status(200).json(Todo);
+
+  })
+
+  app.get('/todos/id',(req,res)=>{
+    for(let i = 0; i<Todos.length;i++)
+      {
+        if(Todos[i].Id == req.body.id)
+          {
+            res.status(200).json(Todos[i]);
+          }
+      }
+  })
+
+  app.post('/todos',(req,res)=>{
+    const Title = req.body.Title;
+    const Description = req.body.Description;
+    const id = uuidv4();
+    Todo.Id = id;
+    Todo.Title= Title;
+    Todo.Description= Description;
+    Todos[i]= Todo;
+    i++;
+  })
+
+  app.put('/todos/id',(req,res)=>{
+    const id = req.body.id;
+    Change = []
+    for(let i =0 ; i<Todos.length;i++)
+      {
+        if(Todos[i].Id == id)
+          {
+            Change = Todos[i];
+          }
+      }
+    Change
+  })
+
   module.exports = app;
